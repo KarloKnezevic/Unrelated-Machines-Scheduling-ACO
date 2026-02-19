@@ -45,7 +45,7 @@
 |K||A||R||L||O| |K||N||E||Z||E||V||I||C||,| |0||0||3||6||4||4||3||5||6||8|
 +-++-++-++-++-+ +-++-++-++-++-++-++-++-++-+ +-++-++-++-++-++-++-++-++-++-+
 
-Mentor: doc.dr.sc. Domagoj Jakoboviæ
+Mentor: doc.dr.sc. Domagoj JakoboviÄ‡
 
 */
 
@@ -94,9 +94,9 @@ typedef struct{
 	int brposla;					//redni broj posla
 
 	vector<int> trajanje;			//vektor trajanja izvrsavanja na svakom stroju; index i je index stroja
-	int Deadline;					//vrijeme eljenog završetka
+	int Deadline;					//vrijeme Å¾eljenog zavrÅ¡etka
 	int Rpripravnost;				//vrijeme pripravnosti
-	double Wtezina;					//teinski faktor
+	double Wtezina;					//teÅ¾inski faktor
 	
 	int Czavrsetak;					//zavrsetak obrade posla
 	int Fprotjecanje;				//F=C-R
@@ -104,7 +104,7 @@ typedef struct{
 	int Tzaostajanje;				//T=max(0,L)
 	int Uzakasnjelost;				//U={1 : T>0	,	0 : T<=0}
 
-	int rb_stroj;					//redni broj stroja koji obrağuje posao
+	int rb_stroj;					//redni broj stroja koji obraÄ‘uje posao
 	int prioritet;					//prioritet u obradi na stroju
 	int prethodnik;					//posao koji je na obradi prije this posla
 	int prethodnik_povezi;			//za ACO na zahtjev
@@ -146,7 +146,7 @@ typedef struct{
 //vektor poslova
 vector<posao> poslovi;
 
-//izraèunati podaci za skup poslova (4. informacije o kvaliteti rasporeda)
+//izraÄunati podaci za skup poslova (4. informacije o kvaliteti rasporeda)
 typedef struct{
 	int Cnaj;
 	double Fnaj;
@@ -167,9 +167,9 @@ int broj_generacija_mrava;
 
 //inicijalna vrijednost feromonskog traga
 double tau;
-//vrijednost alfa parametra (naglasak na odabiru pomoæu feromonskog traga)
+//vrijednost alfa parametra (naglasak na odabiru pomoÄ‡u feromonskog traga)
 double alfa;
-//vrijednost beta parametra (naglasak na odabitu pomoæu heuristièke funkcije)
+//vrijednost beta parametra (naglasak na odabitu pomoÄ‡u heuristiÄke funkcije)
 double beta;
 //vrijednost parametra za isparavanje feromonskog traga (govori koliki dio traga NE isparava)
 double ro;
@@ -197,13 +197,13 @@ vector<vector<int> > sljedeca_aktivnost;
 vector<vector<int> > najbolji_slijed_aktivnosti;
 
 
-/*vrijednost heuristièkog parametra za sve aktivnosti
+/*vrijednost heuristiÄkog parametra za sve aktivnosti
 2D matrica; potreban parametar je varijabla heuristicke_vrijednosti
 1/(suma trajanja i resursa sljedece aktivnosti)	*/
 vector<vector<vector<double> > > tablica_heuristickih_vrijednosti; 
 //trajanje projekta za svakog mrava
 vector<double> trajanje_projekta;
-//vektor za praæenje prioriteta na stroju prilikom ACO rasporeğivanja na zahtjev 
+//vektor za praÄ‡enje prioriteta na stroju prilikom ACO rasporeÄ‘ivanja na zahtjev 
 vector<int> prioritet_na_stroju_zahtjev;
 vector<int> job_prethodi;
 
@@ -225,13 +225,13 @@ typedef struct{
 
 dominacija dominacija_podaci;
 
-/*pseudosluèajni parametar Q
-Q je potreban da bi mrav odluèio hoæe li odlazak u novu aktivnost biti donesena na temelju vjerojatnosne funkcije ("istraivanje")
-ili æe primjeniti steèeno znanje i otiæi u onu aktivnost èiji je produkt jacina_feromonskog_traga i tablica_heuristickih_vrijednosti 
+/*pseudosluÄajni parametar Q
+Q je potreban da bi mrav odluÄio hoÄ‡e li odlazak u novu aktivnost biti donesena na temelju vjerojatnosne funkcije ("istraÅ¾ivanje")
+ili Ä‡e primjeniti steÄeno znanje i otiÄ‡i u onu aktivnost Äiji je produkt jacina_feromonskog_traga i tablica_heuristickih_vrijednosti 
 najveci.
 Ako je q0>=q, primjenjuje znanje, u suprotnom promatra vjerojatnosnu funkciju*/
 double q;
-//vrijednost q0 je e[0,1], a vrlo èesto e[0.8,0.9]
+//vrijednost q0 je e[0,1], a vrlo Äesto e[0.8,0.9]
 double q0=0.8;
 ofstream izlazRAS("trajanje_rasporedivanja.txt");	
 /********************************************GLOBALNE VARIJABLE********************************************/
@@ -262,7 +262,7 @@ void inicijalizacija_poslova(int N){
 		pom2.clear();
 	}
 
-	//postavlja se da je heuristika za istu aktivnost beskonaèna
+	//postavlja se da je heuristika za istu aktivnost beskonaÄna
 	for(int i=0;i<vektor_poslova[N];i++){
 		for(int j=0;j<vektor_poslova[N];j++){
 			for(int k=0;k<vektor_strojeva[N];k++){
@@ -273,8 +273,8 @@ void inicijalizacija_poslova(int N){
 		}
 	}
 
-	//odreğivanje poèetnog poloaja mrava
-	//mravi se rasporeğuju kruno, po modulu aktivnosti
+	//odreÄ‘ivanje poÄetnog poloÅ¾aja mrava
+	//mravi se rasporeÄ‘uju kruÅ¾no, po modulu aktivnosti
 	vector<int> pom3;
 	int mche=-1;
 	int mch;
@@ -290,7 +290,7 @@ void inicijalizacija_poslova(int N){
 		pom3.clear();
 	}
 	
-	//upisivanje heuristièkih vrijednosti u tablicu heuristièkih vrijednsoti
+	//upisivanje heuristiÄkih vrijednosti u tablicu heuristiÄkih vrijednsoti
 	for(int i=0;i<vektor_poslova[N];i++){
 		for(int j=0;j<vektor_poslova[N];j++){
 			for(int k=0;k<vektor_strojeva[N];k++){
@@ -308,8 +308,8 @@ void inicijalizacija_poslova(int N){
 }
 
 /*Funkcija inicijalizira tablicu feromonskih tragova.
-Korisnik odreğuje inicijalnu vrijednost tau.
-Za istu aktivnost se upisuje 0, tj. ne moe mrav prelaziti u aktivnost u kojoj se nalazi*/
+Korisnik odreÄ‘uje inicijalnu vrijednost tau.
+Za istu aktivnost se upisuje 0, tj. ne moÅ¾e mrav prelaziti u aktivnost u kojoj se nalazi*/
 void inicijalizacija_feromonskog_traga(int N){
 
 	vector<double> pom1;
@@ -336,7 +336,7 @@ void inicijalizacija_feromonskog_traga(int N){
 }
 
 /*Funkcija inicijalizira tabu listu svakog mrava.
-Inicijalno se svakom mravu upisuje da je trajanje projekta koje je pronašao 0.
+Inicijalno se svakom mravu upisuje da je trajanje projekta koje je pronaÅ¡ao 0.
 Inicijalno se aktivnost u kojoj se mrav nalazi postavlja u tabu listi u 0 (kao da je vec posjecena)*/
 void inicijalizacija_mrava(int N){
 
@@ -353,7 +353,7 @@ void inicijalizacija_mrava(int N){
 		pom1.clear();
 	}
 
-	//svim mravima inicijalno upisujem u trajanje projekta 0 -> to je Cmax ili neki drugi parametar koji vraæa fitness fja
+	//svim mravima inicijalno upisujem u trajanje projekta 0 -> to je Cmax ili neki drugi parametar koji vraÄ‡a fitness fja
 
 	trajanje_projekta.clear();
     for(int i=0;i<broj_mrava;i++)
@@ -362,7 +362,7 @@ void inicijalizacija_mrava(int N){
 	trenutna_aktivnost_mrava.clear();
 
 	//upisujem u tabu listu na mjesto aktivnosti u kojoj se mrav nalazi 0
-	//u trenutnu aktivnost mrava inicijalno stavljam poèetnu vrijednost
+	//u trenutnu aktivnost mrava inicijalno stavljam poÄetnu vrijednost
 	for(int k=0;k<broj_mrava;k++){
 		//mrav,posao
 		tabu_lista[k][pocetna_aktivnost_mrava[k][0]]=0;
@@ -370,8 +370,8 @@ void inicijalizacija_mrava(int N){
 	}
 }
 
-/*Funkcija za izraèunavanje odlaska u sljedeæu aktivnost na temelju steèenog znanja mrava.
-Mrav je nauèio da odlazi u onu aktivnost kojoj je umnoak feromonskog traga do te aktivnosti i njezine heuristièke vrijednsoti najveæa.
+/*Funkcija za izraÄunavanje odlaska u sljedeÄ‡u aktivnost na temelju steÄenog znanja mrava.
+Mrav je nauÄio da odlazi u onu aktivnost kojoj je umnoÅ¾ak feromonskog traga do te aktivnosti i njezine heuristiÄke vrijednsoti najveÄ‡a.
 Funkcija se primjenjuje ukoliko je q<=q0	*/
 vector<int> eksploatacija(int k, int N){
 
@@ -386,7 +386,7 @@ vector<int> eksploatacija(int k, int N){
 	for(int i=0;i<vektor_poslova[N];i++){
 		for(int j=0;j<vektor_strojeva[N];j++){
 		//if(tabu_lista[k][i]==1 && lk!=i && heuristicke_vrijednosti[lk][i]!=Beskonacnost && temp < pow(jacina_feromonskog_traga[lk][i],alfa)*pow(tablica_heuristickih_vrijednosti[lk][i],beta))
-			//ako mrav nije posjetio taj posao i ako se ponovno ne vraæa u isti posao tada ...
+			//ako mrav nije posjetio taj posao i ako se ponovno ne vraÄ‡a u isti posao tada ...
 			if(tabu_lista[k][i]==1 && lk!=i && temp < pow(jacina_feromonskog_traga[lk][i][j],alfa)*pow(tablica_heuristickih_vrijednosti[lk][i][j],beta))
 			{
 				temp=pow(jacina_feromonskog_traga[lk][i][j],alfa)*pow(tablica_heuristickih_vrijednosti[lk][i][j],beta);
@@ -398,17 +398,17 @@ vector<int> eksploatacija(int k, int N){
 	return sljedeca_aktivnostp;
 }
 
-/*Funkcija za generiranje pseudosluèajnog broja u intervalu <0,1].
-Funkcija se koristi prilikom odluèivanja hoæe li mrav koristiti vjerojatnosnu funkciju ili steèeno znanje za odlazak u sljedeæu aktivnost.*/
+/*Funkcija za generiranje pseudosluÄajnog broja u intervalu <0,1].
+Funkcija se koristi prilikom odluÄivanja hoÄ‡e li mrav koristiti vjerojatnosnu funkciju ili steÄeno znanje za odlazak u sljedeÄ‡u aktivnost.*/
 double drand()
 {	
 	return ((double)rand())/(double)Beskonacnost;
 }
 
-/*Funkcija za izraèunavanje vjerojatnosti odlaska u sljedeæu aktivnost.
-Da bi mrav odluèio kamo odlazi, mora pogledati produkte feromonskog traga do aktivnosti i heursitièke vrijednosti i dodatno mora
-zbrojiti sve te produkte da bi našao najveæu vjerojatnost. Izraèunavanje ove funkcije je dulje od eksploatacije jer mrav nije nauèio
-na temelju èega da vrši odabir odlaska u drugu aktivnost*/
+/*Funkcija za izraÄunavanje vjerojatnosti odlaska u sljedeÄ‡u aktivnost.
+Da bi mrav odluÄio kamo odlazi, mora pogledati produkte feromonskog traga do aktivnosti i heursitiÄke vrijednosti i dodatno mora
+zbrojiti sve te produkte da bi naÅ¡ao najveÄ‡u vjerojatnost. IzraÄunavanje ove funkcije je dulje od eksploatacije jer mrav nije nauÄio
+na temelju Äega da vrÅ¡i odabir odlaska u drugu aktivnost*/
 vector<int> istrazivanje(int k, int N){
 
 	int i;
@@ -416,20 +416,20 @@ vector<int> istrazivanje(int k, int N){
 	vector<int> pom;
 	for(int i=0;i<2;i++)
 		pom.push_back(0);
-	//trenutni poloaj mrava k
+	//trenutni poloÅ¾aj mrava k
 	int lk=trenutna_aktivnost_mrava[k][0]; 	
 	//trenutni stroj
 	int mch=trenutna_aktivnost_mrava[k][1];
 	int count=0;
 	double r=drand();
 	
-	//izraèun ukupnog
+	//izraÄun ukupnog
 	for(int i=0;i<vektor_poslova[N];i++){
 		for(int j=0;j<vektor_strojeva[N];j++){
 	
 			//if(tabu_lista[k][i]==1&&heuristicke_vrijednosti[lk][i]!=Beskonacnost)
 			//ako mrav ima dostupan odlazak u sljedece aktivnosti
-			//zbrajam umnoak (nazivnik)
+			//zbrajam umnoÅ¾ak (nazivnik)
 			if(tabu_lista[k][i]==1 && lk!=i){
 				sum=sum+pow(jacina_feromonskog_traga[lk][i][j],alfa)*pow(tablica_heuristickih_vrijednosti[lk][i][j],beta);
 				count++;
@@ -466,10 +466,10 @@ vector<int> istrazivanje(int k, int N){
 
 /********************************************FITNESS********************************************/
 
-/*Funkcija vraæa 1 ukoliko su svi prethodnici aktivnosti u listi gotovih i ukoliko je posao spreman za obradu, u suprotnom vraæa 0*/
+/*Funkcija vraÄ‡a 1 ukoliko su svi prethodnici aktivnosti u listi gotovih i ukoliko je posao spreman za obradu, u suprotnom vraÄ‡a 0*/
 int podskup_gotovih_i_analiziranih(int prethode, vector<int> lista_gotovih,int trenutno_vrijeme, int pripravnost){
 	int j, br = 1;
-	//ukoliko posao još nije pripravan, prekini
+	//ukoliko posao joÅ¡ nije pripravan, prekini
 	if(trenutno_vrijeme<pripravnost){
 		return 0;
 	}
@@ -485,14 +485,14 @@ int podskup_gotovih_i_analiziranih(int prethode, vector<int> lista_gotovih,int t
 	return 0;
 }
 
-/*Metoda za raèunanje najmanje razlike pripravnosti */
+/*Metoda za raÄunanje najmanje razlike pripravnosti */
 int razlika_vremena(vector<posao> neprocesuirani,int trenutno_vrijeme,vector<int> gotove,int max_prioritet){
 
 	vector<posao> zavrseni;
 	int min_pripravnost;
 	int delta=0;
 
-	//potrai sve koji èiji su prethodnici završili U NEPROCESUIRANIM!
+	//potraÅ¾i sve koji Äiji su prethodnici zavrÅ¡ili U NEPROCESUIRANIM!
 	for(int i=0;i<neprocesuirani.size();i++){
 		for(int j=0;j<gotove.size();j++){
 			if(neprocesuirani[i].prethodnik==gotove[j]){
@@ -500,12 +500,12 @@ int razlika_vremena(vector<posao> neprocesuirani,int trenutno_vrijeme,vector<int
 				break;
 			}
 		}
-		//ne treba se traiti poslove èiji prioritet je veæi max_prioritet+1 
+		//ne treba se traÅ¾iti poslove Äiji prioritet je veÄ‡i max_prioritet+1 
 		if(neprocesuirani[i].prioritet>(max_prioritet+1))
 			break;
 	}
 
-	//potrai najmanju pripravnost kod poslova èiji prethodnici su završili jer taj posao zapoèinje prvi od nezapoèetih
+	//potraÅ¾i najmanju pripravnost kod poslova Äiji prethodnici su zavrÅ¡ili jer taj posao zapoÄinje prvi od nezapoÄetih
 	if(zavrseni.size()!=0){
 		min_pripravnost=zavrseni[0].Rpripravnost;
 	}else
@@ -516,7 +516,7 @@ int razlika_vremena(vector<posao> neprocesuirani,int trenutno_vrijeme,vector<int
 			min_pripravnost=zavrseni[i].Rpripravnost;
 	}
 
-	//delta je vrijeme potrebno da posao èiji prethodnik je završio da postane pripravan i spreman za pokretanje
+	//delta je vrijeme potrebno da posao Äiji prethodnik je zavrÅ¡io da postane pripravan i spreman za pokretanje
 	delta=min_pripravnost-trenutno_vrijeme;
 
 	return delta;
@@ -610,7 +610,7 @@ void izracunaj_prethodnika_novi(int N,vector<vector<int> > redoslijed_obilaska){
 }
 
 /*Metoda za simulaciju obrade poslova na strojevima
-AKO JE 1, TADA GA KORISTI ACO, AKO JE 0, KORISTI GA MIN_MIN,  A AKO JE -1, TADA GA KORISTI ACO S RASPOREĞIVANJEM NA ZAHTJEV  */
+AKO JE 1, TADA GA KORISTI ACO, AKO JE 0, KORISTI GA MIN_MIN,  A AKO JE -1, TADA GA KORISTI ACO S RASPOREÄIVANJEM NA ZAHTJEV  */
 int fitness(vector<vector<int> > redoslijed_obilaska,int parametar,int N){    
 	
 
@@ -709,13 +709,13 @@ int fitness(vector<vector<int> > redoslijed_obilaska,int parametar,int N){
 		}
 	}
 
-	//traenje najveæe pripravnosti
+	//traÅ¾enje najveÄ‡e pripravnosti
 	for(int i=0;i<neprocesuirani.size();i++){
 		if(neprocesuirani[i].Rpripravnost>max_pripravnost)
 				max_pripravnost=neprocesuirani[i].Rpripravnost;
 	}
 
-	//0. posao je fiktivan i on je apriori završio
+	//0. posao je fiktivan i on je apriori zavrÅ¡io
 	gotove.push_back(0);
 
 	//obrada trajanja
@@ -730,10 +730,10 @@ int fitness(vector<vector<int> > redoslijed_obilaska,int parametar,int N){
 			//trenutni posao
 			temp=neprocesuirani[i-br];
 
-			//provjeri jesu li završili prethodnici
+			//provjeri jesu li zavrÅ¡ili prethodnici
 			if(podskup_gotovih_i_analiziranih(temp.prethodnik,gotove,trenutno_vrijeme,temp.Rpripravnost)){
-				//zabiljei koji je max prioritet
-				//to biljeim zbog kasnije provjere koji poslovi bi moda mogli biti pripravni za rad
+				//zabiljeÅ¾i koji je max prioritet
+				//to biljeÅ¾im zbog kasnije provjere koji poslovi bi moÅ¾da mogli biti pripravni za rad
 				if(temp.prioritet>max_prioritet)
 					max_prioritet=temp.prioritet;
 				//ukoliko su prethodni poslovi zavrsili, pokreni posao
@@ -768,7 +768,7 @@ label1:		if(!pokrenute.empty()){
 
 			
 
-			//koliko traje i koji je posao od trenutnih najkraæi
+			//koliko traje i koji je posao od trenutnih najkraÄ‡i
 			for(int i=1;i<duljina;i++){
 				temp=pokrenute[i];
 				if(temp.trajanje[temp.rb_stroj-1]<min){
@@ -780,7 +780,7 @@ label1:		if(!pokrenute.empty()){
 			}
 
 			if(trenutno_vrijeme<max_pripravnost){
-				//racuna razliku vremena izmeğu prvog posla èiji prethodnik je završio, a èeka da postane pripravan i pokrenutog posla èije trajanje je minimalno
+				//racuna razliku vremena izmeÄ‘u prvog posla Äiji prethodnik je zavrÅ¡io, a Äeka da postane pripravan i pokrenutog posla Äije trajanje je minimalno
 				delta_time=razlika_vremena(neprocesuirani,trenutno_vrijeme,gotove,max_prioritet);
 			}else{
 				delta_time=0;
@@ -788,7 +788,7 @@ label1:		if(!pokrenute.empty()){
 
 			if((delta_time>=min) || (delta_time==0)){
 
-				//izbriši taj posao iz liste pokrenutih i zapamti ga jer nad gotovim poslom se treba provesti statistika
+				//izbriÅ¡i taj posao iz liste pokrenutih i zapamti ga jer nad gotovim poslom se treba provesti statistika
 				trenutni=pokrenute[minadr];
 				pokrenute.erase(pokrenute.begin()+minadr);
 
@@ -799,13 +799,13 @@ label1:		if(!pokrenute.empty()){
 					pokrenute[i].trajanje[pokrenute[i].rb_stroj-1]-=trenutni.trajanje[trenutni.rb_stroj-1]; //oduzimanje vremena procesiranja na stroju obrade
 				}
 			
-				//u listu gotovih dodaj posao koja je završio
+				//u listu gotovih dodaj posao koja je zavrÅ¡io
 				gotove.push_back(trenutni.brposla);
 
 				trenutno_vrijeme+=trenutni.trajanje[trenutni.rb_stroj-1];
 
 				//upisivanje podataka u posao u listi poslova
-				//indexi poslova u listi poèinju od 1!
+				//indexi poslova u listi poÄinju od 1!
 				poslovi[trenutni.brposla-1].Czavrsetak=trenutno_vrijeme;
 				poslovi[trenutni.brposla-1].kasnjenje();
 				poslovi[trenutni.brposla-1].protjecanje();
@@ -819,7 +819,7 @@ label1:		if(!pokrenute.empty()){
 					trenutno_vrijeme+=delta_time;
 			}
 
-			//uvjet koji prazni listu pokrenutih ukoliko više ne postoje neprocesuirane aktivnosti
+			//uvjet koji prazni listu pokrenutih ukoliko viÅ¡e ne postoje neprocesuirane aktivnosti
 			if(neprocesuirani.empty()){
 				if(!pokrenute.empty()){
 					goto label1;
@@ -829,14 +829,14 @@ label1:		if(!pokrenute.empty()){
 			}
 
 		}else{
-			//ukoliko je red pokrenutih prazan, poveæaj vrijeme
+			//ukoliko je red pokrenutih prazan, poveÄ‡aj vrijeme
 			trenutno_vrijeme++;
 			}
 
 	}
 
-	//fitness moe vraæati 4 moguæe vrijednosti: Cmax / Fw / Tw / Uw
-	//u odnosu na ono što je odabrao korisnik, to æe fitness vraæati
+	//fitness moÅ¾e vraÄ‡ati 4 moguÄ‡e vrijednosti: Cmax / Fw / Tw / Uw
+	//u odnosu na ono Å¡to je odabrao korisnik, to Ä‡e fitness vraÄ‡ati
 
 	double F=0;
 	double U=0;
@@ -886,7 +886,7 @@ label1:		if(!pokrenute.empty()){
 
 void citanje_glavne_datoteke(){
 
-	//varijabla za uèitavanje redova
+	//varijabla za uÄitavanje redova
 	string redak;
 	//konstanta komentar
 	string komentar="//";
@@ -1003,11 +1003,11 @@ void citanje_glavne_datoteke(){
 }
 
 /*Metoda za citanje pripravnosti poslova ili dolazaka poslova u sustav.
-Ne èita se cijela datoteka odjednom, nego se datoteka èite red po red kako se informacije obrağuju
+Ne Äita se cijela datoteka odjednom, nego se datoteka Äite red po red kako se informacije obraÄ‘uju
 citam N+1 red, pocevsi brojati od 0. */
 void citanje_dolazaka_poslova(int N){
 
-	//varijabla za uèitavanje redova
+	//varijabla za uÄitavanje redova
 	string redak;
 	//brojac redaka
 	int brojac=0;
@@ -1059,12 +1059,12 @@ void citanje_dolazaka_poslova(int N){
 }
 
 
-/*Metoda za citanje trajanja poslova na odreğenosm stroju
+/*Metoda za citanje trajanja poslova na odreÄ‘enosm stroju
 Za svaki posao je zapisano trajanje obrade na svakom poslu
 citam N+1 red, pocevsi brojati od 0. */
 void citanje_trajanja_poslova(int N){
 
-	//varijabla za uèitavanje redova
+	//varijabla za uÄitavanje redova
 	string redak;
 	//brojac redaka
 	int brojac=0;
@@ -1119,11 +1119,11 @@ void citanje_trajanja_poslova(int N){
 }
 
 
-/*Metoda za citanje vremena eljenog završetka
+/*Metoda za citanje vremena Å¾eljenog zavrÅ¡etka
 citam N+1 red, pocevsi brojati od 0. */
 void citanje_zavrsetaka_poslova(int N){
 
-	//varijabla za uèitavanje redova
+	//varijabla za uÄitavanje redova
 	string redak;
 	//brojac redaka
 	int brojac=0;
@@ -1174,11 +1174,11 @@ void citanje_zavrsetaka_poslova(int N){
 	}
 }
 
-/*Metoda za èitanje teinskih faktora poslova
+/*Metoda za Äitanje teÅ¾inskih faktora poslova
 citam N+1 red, pocevsi brojati od 0. */
 void citanje_tezinskih_faktora_poslova(int N){
 
-	//varijabla za uèitavanje redova
+	//varijabla za uÄitavanje redova
 	string redak;
 	//brojac redaka
 	int brojac=0;
@@ -1247,7 +1247,7 @@ void inicijaliziraj_vektor_poslova(int N){
 	}
 }
 
-/*Metoda za raèunanje najmanjeg vremena pripravnosti od svih strojeva */
+/*Metoda za raÄunanje najmanjeg vremena pripravnosti od svih strojeva */
 int racunaj_ro(vector<int> pripr_strojeva){
 
 	int min=32000;
@@ -1278,8 +1278,8 @@ int racunaj_delta(vector<posao> dolazeci, int tren_time){
 /********************************************ALGORITAMSKE METODE ZA MIN-MIN I ACO********************************************/
 
 /********************************************MIN-MIN********************************************/
-/*MIN_MIN algoritam za PRIDRUIVANJE I UREĞIVANJE poslova
-Algoritam je opisan na 78. str. doktorske disertacije doc.dr.sc. Jakoboviæa*/
+/*MIN_MIN algoritam za PRIDRUÅ½IVANJE I UREÄIVANJE poslova
+Algoritam je opisan na 78. str. doktorske disertacije doc.dr.sc. JakoboviÄ‡a*/
 void min_min(int N){
 
 	int min_c=0;
@@ -1292,9 +1292,9 @@ void min_min(int N){
 	double sumator=0;
 	int brojraspored=0;
 
-	//skup svih raspoloivih poslova koji još nisu pokrenuti, inicijalno je Jmeta prazan
+	//skup svih raspoloÅ¾ivih poslova koji joÅ¡ nisu pokrenuti, inicijalno je Jmeta prazan
 	vector<posao> Jmeta;
-	//vektor za preæenje dodjele prioriteta na nekom stroju
+	//vektor za preÄ‡enje dodjele prioriteta na nekom stroju
 	vector<int> prati_prioritete;
 	//pripravnost strojeva, inicijalno je 0
 	vector<int> pripr_strojeva;
@@ -1315,7 +1315,7 @@ void min_min(int N){
 		dolazeci.push_back(poslovi[i]);
 	}
 
-	//poèetna inicijalizacija prioriteta na strojevima, pripreme stroja
+	//poÄetna inicijalizacija prioriteta na strojevima, pripreme stroja
 	for(int i=0;i<vektor_strojeva[N];i++){
 		prati_prioritete.push_back(0);
 		pripr_strojeva.push_back(0);
@@ -1348,7 +1348,7 @@ void min_min(int N){
 	}
 
 	//VELIKA PETLJA
-	//dok posotje dolazeæi ili postoje neprocesuirani
+	//dok posotje dolazeÄ‡i ili postoje neprocesuirani
 	while((dolazeci.size()>0) || (neprocesuirani.size()>0)|| (Jmeta.size()>0) ){
 
 		pocetaK=clock();
@@ -1375,19 +1375,19 @@ void min_min(int N){
 			copy_ps.push_back(pripr_strojeva[i]);
 
 		//dok postoje poslovi u Jmeta radi...
-		//ovdje se vrsi pridruzivanje i ureğivanje -> koji posao se radi na kojem stroju i koji je po redu u redoslijedu obrade
+		//ovdje se vrsi pridruzivanje i ureÄ‘ivanje -> koji posao se radi na kojem stroju i koji je po redu u redoslijedu obrade
 		while(!Jmeta.empty()){
 			
-			//za svaki zadatak iz Jmeta pronaæi najmanji Cij i pronaæi koji je to posao i na kojem stroju
+			//za svaki zadatak iz Jmeta pronaÄ‡i najmanji Cij i pronaÄ‡i koji je to posao i na kojem stroju
 			min_c=C[0][0];
 			//strojevi idu od 1. i poslovi idu od 1
 			indeks_stroj=1;
 			indeks_posao=0;
-			//pronaği najmanji Cij u cijeloj matrici
+			//pronaÄ‘i najmanji Cij u cijeloj matrici
 			for(int i=0;i<Jmeta.size();i++){
 				for(int j=0;j<vektor_strojeva[N];j++){
 					if(C[i][j]<min_c){
-						//pridruivanje posla stroju
+						//pridruÅ¾ivanje posla stroju
 						indeks_stroj=j;
 						//indeks posla u Jmeta
 						indeks_posao=i;
@@ -1397,15 +1397,15 @@ void min_min(int N){
 
 			}
 			
-			//dodjeljivanje posla stroju i ureğivanje 
-			Jmeta[indeks_posao].rb_stroj=indeks_stroj+1;	//strojevi poèinju od indeksa 1
-			//+1 jer prioriteti poèinju od indexa 1
+			//dodjeljivanje posla stroju i ureÄ‘ivanje 
+			Jmeta[indeks_posao].rb_stroj=indeks_stroj+1;	//strojevi poÄinju od indeksa 1
+			//+1 jer prioriteti poÄinju od indexa 1
 			Jmeta[indeks_posao].prioritet=prati_prioritete[indeks_stroj]+1;
-			//poveæam broj prioriteta sljedeæeg posla
+			//poveÄ‡am broj prioriteta sljedeÄ‡eg posla
 			prati_prioritete[indeks_stroj]++;
 			//obnoviti vrijeme pripravnosti stroja na kojem sam pokrenuo posao
 			pripr_strojeva[indeks_stroj]+=Jmeta[indeks_posao].trajanje[indeks_stroj];
-			//stavljanje poslova u novi vektor radi èuvanja informacije
+			//stavljanje poslova u novi vektor radi Äuvanja informacije
 			neprocesuirani.push_back(Jmeta[indeks_posao]);
 			//brisanje posla iz Jmeta
 			Jmeta.erase(Jmeta.begin()+indeks_posao);
@@ -1426,7 +1426,7 @@ void min_min(int N){
 			int pokrecem_posao=32000;
 			//ako je stroj slobodan
 			if((zaposlen[i]==0)&&(neprocesuirani.size()!=0)){
-				//pronaği posao èiji prioritet izvoğenja na tom stroju je najmanji
+				//pronaÄ‘i posao Äiji prioritet izvoÄ‘enja na tom stroju je najmanji
 				for(int j=0;j<neprocesuirani.size();j++){
 					if((neprocesuirani[j].rb_stroj-1==i)&&(neprocesuirani[j].prioritet<=prati_prioritete[i])){
 						prati_prioritete[i]=neprocesuirani[j].prioritet;
@@ -1437,7 +1437,7 @@ void min_min(int N){
 				if(pokrecem_posao==32000)
 					continue;
 
-				//kad je posao pronağen, on se pokreæe na tom stroju, odnosno, briše se posao iz neprocesuranih, a poveæava se vrijeme priprave stroja i za trajanje posla j
+				//kad je posao pronaÄ‘en, on se pokreÄ‡e na tom stroju, odnosno, briÅ¡e se posao iz neprocesuranih, a poveÄ‡ava se vrijeme priprave stroja i za trajanje posla j
 				for(int k=0;k<poslovi.size();k++){
 					if(poslovi[k].brposla==neprocesuirani[pokrecem_posao].brposla){
 						//upisivanje podataka u posao
@@ -1464,10 +1464,10 @@ void min_min(int N){
 		
 		//vraca vrijednost najmanje obrade na svim strojevima
 		ro=racunaj_ro(pripr_strojeva);
-		//vraca vrijeme potrebno da bi sljedeæi posao postao pripravan iz dolazeæih
+		//vraca vrijeme potrebno da bi sljedeÄ‡i posao postao pripravan iz dolazeÄ‡ih
 		delta=racunaj_delta(dolazeci,tren_time);
 
-		//ako je vrijeme za pripravu sljedeæeg posla manje ili jednako vremenu obrade posla na nekom od strojeva
+		//ako je vrijeme za pripravu sljedeÄ‡eg posla manje ili jednako vremenu obrade posla na nekom od strojeva
 		if((ro<=delta) || (delta==0)){
 			for(int i=0;i<vektor_strojeva[N];i++){
 				//oduzmi trajanje procesiranja na tom stroju
@@ -1487,13 +1487,13 @@ void min_min(int N){
 			}
 		}
 
-		//uveæaj trenutno vrijeme
+		//uveÄ‡aj trenutno vrijeme
 		if(delta!=0)
 			tren_time+=delta;
 		else
 			tren_time+=ro;
 
-		//pokreni sve poslove koji mogu poèeti
+		//pokreni sve poslove koji mogu poÄeti
 		int ii=0;
 		while(ii<dolazeci.size()){
 
@@ -1527,13 +1527,13 @@ void min_min(int N){
 
 /********************************************ACO********************************************/
 
-/*ACO algoritam za PRIDRUIVANJE I UREĞIVANJE poslova*/
+/*ACO algoritam za PRIDRUÅ½IVANJE I UREÄIVANJE poslova*/
 void ACO(int N){
 
 	inicijalizacija_poslova(N);
 	inicijalizacija_feromonskog_traga(N);
 
-	//inicijalizacija sljedeæeg posla
+	//inicijalizacija sljedeÄ‡eg posla
 	vector<int> pom1;
 	pom1.push_back(0);	//koji posao
 	pom1.push_back(0);	//koji stroj
@@ -1553,10 +1553,10 @@ void ACO(int N){
 	}
 
 
-	//indeks mrava s najboljim rješenjem
+	//indeks mrava s najboljim rjeÅ¡enjem
 	int b=0;
 
-	//moguæi parametri za zaustavljanje
+	//moguÄ‡i parametri za zaustavljanje
 	double najkrace_vrijeme_trajanja_projekta=100000000;
 	//ovdje ce se nalaziti moguci Cmax ili preostala 3 parametra
 	double najkrace_vrijeme_trajanja_projekta_ikada=100000000;
@@ -1566,7 +1566,7 @@ void ACO(int N){
 	//ACO ALGORITAM
 	cout<<"Progress ";
 	for(int i=0;i<broj_generacija_mrava;i++){
-		//za svaku generaciju ispiši 
+		//za svaku generaciju ispiÅ¡i 
 		cout<<".";
 		//uspostavi put za svakog mrava u turi
 		inicijalizacija_mrava(N);
@@ -1578,14 +1578,14 @@ void ACO(int N){
 					//za sve mrave
 					for(int k=0;k<broj_mrava;k++){
 						q=drand();
-						//odreğivanje hoæe li mrav odabirati odlazak na temelju vjerojatnosne funkcije ili na temelju nauèenog			
+						//odreÄ‘ivanje hoÄ‡e li mrav odabirati odlazak na temelju vjerojatnosne funkcije ili na temelju nauÄenog			
 						if(q<=q0){
 
-							//vraæa vektor -> [posao,stroj]
+							//vraÄ‡a vektor -> [posao,stroj]
 							sljedeca_aktivnost[k]=eksploatacija(k,N);
 						}
 						else{
-							//vraæa vektor -> [posao,stroj]
+							//vraÄ‡a vektor -> [posao,stroj]
 							sljedeca_aktivnost[k]=istrazivanje(k,N);
 						}
 						//upisi da je mrav posjetio taj posao
@@ -1611,7 +1611,7 @@ void ACO(int N){
 						redoslijed_obilaska[k][i][1]++;
 					}
 				}
-				//auriraj tragove za svakog mrava
+				//aÅ¾uriraj tragove za svakog mrava
 				for(int k=0;k<broj_mrava;k++){
 
 					int x,y0,y1;
@@ -1634,7 +1634,7 @@ void ACO(int N){
 			trajanje_projekta[i]=fitness(redoslijed_obilaska[i],1,N); 
 		}
 
-		//traenje najboljeg rješenja
+		//traÅ¾enje najboljeg rjeÅ¡enja
 		for(int k=0;k<broj_mrava;k++){
 
 			//ako je trajanje projekta manje od inicijalne vrijednosti 
@@ -1652,7 +1652,7 @@ void ACO(int N){
 				}
 			}
 		}
-		//auriranje tragova
+		//aÅ¾uriranje tragova
 		for(int i=0;i<vektor_poslova[N];i++)
 			for(int j=0;j<vektor_poslova[N];j++){
 				for(int k=0;k<vektor_strojeva[N];k++){
@@ -1660,13 +1660,13 @@ void ACO(int N){
 					if(heuristicke_vrijednosti[i][j][k]!=Beskonacnost){
 
 						//feromonski trag nadodaje samo NAJBOLJI mrav
-						//time se postie toènija konvergencija
+						//time se postiÅ¾e toÄnija konvergencija
 						jacina_feromonskog_traga[i][j][k]=(1-ro)*jacina_feromonskog_traga[i][j][k]+ro/(double)najkrace_vrijeme_trajanja_projekta; 
 					}
 				}
 			}
 	
-			//zapamti vrijednost najboljeg rješenja
+			//zapamti vrijednost najboljeg rjeÅ¡enja
 			if(najkrace_vrijeme_trajanja_projekta_ikada>najkrace_vrijeme_trajanja_projekta){
 
 				najkrace_vrijeme_trajanja_projekta_ikada=najkrace_vrijeme_trajanja_projekta;
@@ -1692,7 +1692,7 @@ int partOf(int j, vector<posao> Jmeta){
 /*Resetiraju se vrijednosti za feromosnki trag, a heuristika ostaje ista*/
 void osvjezi_feromone(vector<posao> Jmeta, int N){
 
-	//HEURISTIKA SE NE OSVJEAVA; ONA OSTAJE NEPROMJENJENA KROZ RAD U PROGRAMU
+	//HEURISTIKA SE NE OSVJEÅ½AVA; ONA OSTAJE NEPROMJENJENA KROZ RAD U PROGRAMU
 	//resetiram feromonski trag na inicijalne vrijednosti
 	for(int i=0;i<vektor_poslova[N];i++){
 		for(int j=0;j<vektor_poslova[N];j++){
@@ -1705,8 +1705,8 @@ void osvjezi_feromone(vector<posao> Jmeta, int N){
 		}
 	}
 			
-	//odreğivanje poèetnog poloaja mrava
-	//mravi se rasporeğuju kruno, po modulu aktivnosti
+	//odreÄ‘ivanje poÄetnog poloÅ¾aja mrava
+	//mravi se rasporeÄ‘uju kruÅ¾no, po modulu aktivnosti
 	pocetna_aktivnost_mrava.clear();
 	vector<int> pom3;
 	int mche=-1;
@@ -1724,7 +1724,7 @@ void osvjezi_feromone(vector<posao> Jmeta, int N){
 	}
 }
 
-/*Obzirom na poslove u Jmeta, mrave rasporeğuje u aktivna podruèja*/
+/*Obzirom na poslove u Jmeta, mrave rasporeÄ‘uje u aktivna podruÄja*/
 void inicijalizacija_mrava_zahtjev(int N, vector<posao> Jmeta){
 
 	vector<int> pom1;
@@ -1744,7 +1744,7 @@ void inicijalizacija_mrava_zahtjev(int N, vector<posao> Jmeta){
 		pom1.clear();
 	}
 
-	//svim mravima inicijalno upisujem u trajanje projekta 0 -> to je Cmax ili neki drugi parametar koji vraæa fitness fja
+	//svim mravima inicijalno upisujem u trajanje projekta 0 -> to je Cmax ili neki drugi parametar koji vraÄ‡a fitness fja
 
 	trajanje_projekta.clear();
     for(int i=0;i<broj_mrava;i++)
@@ -1753,7 +1753,7 @@ void inicijalizacija_mrava_zahtjev(int N, vector<posao> Jmeta){
 	trenutna_aktivnost_mrava.clear();
 
 	//upisujem u tabu listu na mjesto aktivnosti u kojoj se mrav nalazi 0
-	//u trenutnu aktivnost mrava inicijalno stavljam poèetnu vrijednost
+	//u trenutnu aktivnost mrava inicijalno stavljam poÄetnu vrijednost
 	for(int k=0;k<broj_mrava;k++){
 		//mrav,posao
 		tabu_lista[k][pocetna_aktivnost_mrava[k][0]]=0;
@@ -1761,7 +1761,7 @@ void inicijalizacija_mrava_zahtjev(int N, vector<posao> Jmeta){
 	}
 }
 
-/*ACO algoritam za PRIDRUIVANJE I UREĞIVANJE NA ZAHTJEV*/
+/*ACO algoritam za PRIDRUÅ½IVANJE I UREÄIVANJE NA ZAHTJEV*/
 void ACO_na_zahtjev(int N){
 
 	posao zamjena;
@@ -1771,13 +1771,13 @@ void ACO_na_zahtjev(int N){
 	double sumator=0;
 	int brojraspored=0;
 
-	//skup svih raspoloivih poslova koji još nisu pokrenuti, inicijalno je Jmeta prazan
+	//skup svih raspoloÅ¾ivih poslova koji joÅ¡ nisu pokrenuti, inicijalno je Jmeta prazan
 	vector<posao> Jmeta;
 	//poslovi koji su dolazeci
 	vector<posao> dolazeci;
 	//vektor bool koji stroj trenutno radi
 	vector<int> zaposlen;
-	//vektor za preæenje dodjele prioriteta na nekom stroju
+	//vektor za preÄ‡enje dodjele prioriteta na nekom stroju
 	vector<int> prati_prioritete;
 	//pripravnost strojeva, inicijalno je 0
 	vector<int> pripr_strojeva;
@@ -1793,7 +1793,7 @@ void ACO_na_zahtjev(int N){
 
 	prioritet_na_stroju_zahtjev.clear();
 	job_prethodi.clear();
-	//poèetna inicijalizacija prioriteta na strojevima, pripreme stroja
+	//poÄetna inicijalizacija prioriteta na strojevima, pripreme stroja
 	for(int i=0;i<vektor_strojeva[N];i++){
 		prati_prioritete.push_back(0);
 		pripr_strojeva.push_back(0);
@@ -1829,11 +1829,11 @@ void ACO_na_zahtjev(int N){
 		uzi++;
 	}
 
-	//inicijalizacija opæenitih matrica
+	//inicijalizacija opÄ‡enitih matrica
 	inicijalizacija_poslova(N);
 	inicijalizacija_feromonskog_traga(N);
 
-	//inicijalizacija sljedeæeg posla
+	//inicijalizacija sljedeÄ‡eg posla
 	vector<int> pom1;
 	pom1.push_back(0);	//koji posao
 	pom1.push_back(0);	//koji stroj
@@ -1853,7 +1853,7 @@ void ACO_na_zahtjev(int N){
 	}
 
 	//VELIKA PETLJA
-	//dok postoje dolazeæi ili postoje neprocesuirani
+	//dok postoje dolazeÄ‡i ili postoje neprocesuirani
 	cout<<"Progress ";
 	while((dolazeci.size()>0) || (Jmeta.size()>0) ){
 
@@ -1874,10 +1874,10 @@ void ACO_na_zahtjev(int N){
 
 		//metoda koja s obzirom na Jmeta osvjezava 
 		osvjezi_feromone(Jmeta,N);																
-		//indeks mrava s najboljim rješenjem
+		//indeks mrava s najboljim rjeÅ¡enjem
 		int b=0;
 
-		//moguæi parametri za zaustavljanje
+		//moguÄ‡i parametri za zaustavljanje
 		double najkrace_vrijeme_trajanja_projekta=100000000;
 		//ovdje ce se nalaziti moguci Cmax ili preostala 3 parametra
 		double najkrace_vrijeme_trajanja_projekta_ikada=100000000;
@@ -1896,14 +1896,14 @@ void ACO_na_zahtjev(int N){
 						//za sve mrave
 						for(int k=0;k<broj_mrava;k++){
 							q=drand();
-							//odreğivanje hoæe li mrav odabirati odlazak na temelju vjerojatnosne funkcije ili na temelju nauèenog			
+							//odreÄ‘ivanje hoÄ‡e li mrav odabirati odlazak na temelju vjerojatnosne funkcije ili na temelju nauÄenog			
 							if(q<=q0){
 
-								//vraæa vektor -> [posao,stroj]
+								//vraÄ‡a vektor -> [posao,stroj]
 								sljedeca_aktivnost[k]=eksploatacija(k,N);
 							}
 							else{
-								//vraæa vektor -> [posao,stroj]
+								//vraÄ‡a vektor -> [posao,stroj]
 								sljedeca_aktivnost[k]=istrazivanje(k,N);
 							}
 							//upisi da je mrav posjetio taj posao
@@ -1925,7 +1925,7 @@ void ACO_na_zahtjev(int N){
 							redoslijed_obilaska[k][i][1]++;
 						}
 					}
-					//auriraj tragove za svakog mrava
+					//aÅ¾uriraj tragove za svakog mrava
 					for(int k=0;k<broj_mrava;k++){
 
 						int x,y0,y1;
@@ -1948,7 +1948,7 @@ void ACO_na_zahtjev(int N){
 				trajanje_projekta[i]=fitness(redoslijed_obilaska[i],-1,N);										
 			}
 
-			//traenje najboljeg rješenja
+			//traÅ¾enje najboljeg rjeÅ¡enja
 			for(int k=0;k<broj_mrava;k++){
 
 				//ako je trajanje projekta manje od inicijalne vrijednosti 
@@ -1966,7 +1966,7 @@ void ACO_na_zahtjev(int N){
 					}
 				}
 			}
-			//auriranje tragova
+			//aÅ¾uriranje tragova
 			for(int i=0;i<vektor_poslova[N];i++)
 				for(int j=0;j<vektor_poslova[N];j++){
 					for(int k=0;k<vektor_strojeva[N];k++){
@@ -1974,13 +1974,13 @@ void ACO_na_zahtjev(int N){
 						if(heuristicke_vrijednosti[i][j][k]!=Beskonacnost){
 
 							//feromonski trag nadodaje samo NAJBOLJI mrav
-							//time se postie toènija konvergencija
+							//time se postiÅ¾e toÄnija konvergencija
 							jacina_feromonskog_traga[i][j][k]=(1-ro)*jacina_feromonskog_traga[i][j][k]+ro/(double)najkrace_vrijeme_trajanja_projekta; 
 						}
 					}
 				}
 				
-			//zapamti vrijednost najboljeg rješenja
+			//zapamti vrijednost najboljeg rjeÅ¡enja
 			if(najkrace_vrijeme_trajanja_projekta_ikada>najkrace_vrijeme_trajanja_projekta){
 
 				najkrace_vrijeme_trajanja_projekta_ikada=najkrace_vrijeme_trajanja_projekta;
@@ -1992,11 +1992,11 @@ void ACO_na_zahtjev(int N){
 			int pokrecem_posao=32000;
 			//ako je stroj slobodan
 			if((zaposlen[i]==0)&&(najbolji_slijed_aktivnosti.size()!=0)){
-				//pronaği posao èiji prioritet izvoğenja na tom stroju je najmanji
+				//pronaÄ‘i posao Äiji prioritet izvoÄ‘enja na tom stroju je najmanji
 				for(int j=0;j<najbolji_slijed_aktivnosti.size();j++){
 					if(najbolji_slijed_aktivnosti[j][1]-1==i){
 						pokrecem_posao=j;
-						//poveæaj prioritet izvoğenja na tom stroju
+						//poveÄ‡aj prioritet izvoÄ‘enja na tom stroju
 						prati_prioritete[i]++;;
 						//odmah pokreni 1. u nizu najbolji_slijed_aktivnosti;
 						break;
@@ -2006,7 +2006,7 @@ void ACO_na_zahtjev(int N){
 				if(pokrecem_posao==32000)
 					continue;
 
-				//kad je posao pronağen, on se pokreæe na tom stroju, odnosno, briše se posao iz najbolji_slijed_aktivnosti, a poveæava se vrijeme priprave stroja i za trajanje posla j
+				//kad je posao pronaÄ‘en, on se pokreÄ‡e na tom stroju, odnosno, briÅ¡e se posao iz najbolji_slijed_aktivnosti, a poveÄ‡ava se vrijeme priprave stroja i za trajanje posla j
 				for(int k=0;k<poslovi.size();k++){
 					if(poslovi[k].brposla==najbolji_slijed_aktivnosti[pokrecem_posao][0]){
 						//upisivanje podataka u posao
@@ -2036,10 +2036,10 @@ void ACO_na_zahtjev(int N){
 		
 		//vraca vrijednost najmanje obrade na svim strojevima
 		gama=racunaj_ro(pripr_strojeva);
-		//vraca vrijeme potrebno da bi sljedeæi posao postao pripravan iz dolazeæih
+		//vraca vrijeme potrebno da bi sljedeÄ‡i posao postao pripravan iz dolazeÄ‡ih
 		delta=racunaj_delta(dolazeci,tren_time);
 
-		//ako je vrijeme za pripravu sljedeæeg posla manje ili jednako vremenu obrade posla na nekom od strojeva
+		//ako je vrijeme za pripravu sljedeÄ‡eg posla manje ili jednako vremenu obrade posla na nekom od strojeva
 		if((gama<=delta) || (delta==0)){
 			for(int i=0;i<vektor_strojeva[N];i++){
 				//oduzmi trajanje procesiranja na tom stroju
@@ -2059,13 +2059,13 @@ void ACO_na_zahtjev(int N){
 			}
 		}
 
-		//uveæaj trenutno vrijeme
+		//uveÄ‡aj trenutno vrijeme
 		if(delta!=0)
 			tren_time+=delta;
 		else
 			tren_time+=gama;
 
-		//pokreni sve poslove koji mogu poèeti
+		//pokreni sve poslove koji mogu poÄeti
 		int ii=0;
 		while(ii<dolazeci.size()){
 
@@ -2099,7 +2099,7 @@ void ACO_na_zahtjev(int N){
 
 /********************************************ACO NA ZAHTJEV********************************************/
 
-/*Ucitavanje ulaznih podataka; veæinom za ACO*/
+/*Ucitavanje ulaznih podataka; veÄ‡inom za ACO*/
 void ucitaj_podatke_za_program(){
 
 	int izbor, izbor1;
@@ -2283,7 +2283,7 @@ int main(){
 	ofstream izlazMIN("min_min.txt");
 	ofstream izlazDOM(ime_dominacija_dat.c_str());
 
-	//poèetak mjerenja obrade programa 
+	//poÄetak mjerenja obrade programa 
 	start=clock();
 
 	//citanje podataka o kolicini poslova, strojeva
@@ -2311,7 +2311,7 @@ int main(){
 
 			cout<<"[MIN-MIN]"<<endl;
 
-			//predodreğeno rasporeğivanje
+			//predodreÄ‘eno rasporeÄ‘ivanje
 			start_p=clock();
 			min_min(i);
 			finish_p=clock();
@@ -2382,7 +2382,7 @@ int main(){
 
 		}else{
 
-			//rasporeğivanje na zahtjev
+			//rasporeÄ‘ivanje na zahtjev
 			cout<<"Procitane informacije za "<<i+1<<". skup:  "<<endl;
 
 			cout<<"[MIN-MIN]"<<endl;
