@@ -216,6 +216,65 @@ Dynamic mode parameters:
 | dynamic | weighted_tardiness | 123.5031 | 93.9852 | 23.90% |
 | dynamic | weighted_tardy_jobs | 3.1938 | 2.9002 | 9.19% |
 
+### Key Conclusions
+
+- ACO outperforms Min-Min on average in all evaluated scenarios (8/8).
+- In static mode, ACO is never worse on any set for any objective.
+- In dynamic mode, ACO is still better on average, but it can be worse on a subset of sets.
+- Largest average gains are on tardiness-driven objectives (`weighted_tardiness`, `weighted_tardy_jobs`).
+
+### Head-to-Head Outcomes by Scenario (120 sets each)
+
+| Mode | Objective | ACO Better | Equal | ACO Worse |
+|---|---|---:|---:|---:|
+| static | makespan | 78 | 42 | 0 |
+| static | weighted_flow | 109 | 11 | 0 |
+| static | weighted_tardiness | 75 | 45 | 0 |
+| static | weighted_tardy_jobs | 49 | 71 | 0 |
+| dynamic | makespan | 53 | 43 | 24 |
+| dynamic | weighted_flow | 66 | 36 | 18 |
+| dynamic | weighted_tardiness | 47 | 67 | 6 |
+| dynamic | weighted_tardy_jobs | 39 | 76 | 5 |
+
+### Improvement Range Across Sets
+
+`improvement_percent = (Min-Min - ACO) / Min-Min * 100`
+
+| Mode | Objective | Worst Set (index, %) | Best Set (index, %) |
+|---|---|---:|---:|
+| static | makespan | 1, 0.00% | 62, 33.33% |
+| static | weighted_flow | 1, 0.00% | 24, 22.91% |
+| static | weighted_tardiness | 0, 0.00% | 2, 100.00% |
+| static | weighted_tardy_jobs | 0, 0.00% | 2, 100.00% |
+| dynamic | makespan | 22, -12.96% | 47, 29.12% |
+| dynamic | weighted_flow | 89, -19.86% | 118, 33.35% |
+| dynamic | weighted_tardiness | 111, -166.67% | 8, 100.00% |
+| dynamic | weighted_tardy_jobs | 111, -400.00% | 9, 100.00% |
+
+### Visual Comparison
+
+```mermaid
+xychart-beta
+    title "Average ACO Improvement vs Min-Min (%)"
+    x-axis ["S-Cmax", "S-WFlow", "S-WTard", "S-WTardyJobs", "D-Cmax", "D-WFlow", "D-WTard", "D-WTardyJobs"]
+    y-axis "Improvement (%)" -5 --> 25
+    bar [2.56, 3.00, 15.80, 11.88, 2.00, 9.26, 23.90, 9.19]
+```
+
+```mermaid
+pie title "Static comparisons (4 objectives x 120 sets)"
+    "ACO better" : 311
+    "Equal" : 169
+    "ACO worse" : 0
+```
+
+```mermaid
+pie title "Dynamic comparisons (4 objectives x 120 sets)"
+    "ACO better" : 205
+    "Equal" : 222
+    "ACO worse" : 53
+```
+
 Generated CSV files:
 
 - `results/static_makespan_0_119.csv`
